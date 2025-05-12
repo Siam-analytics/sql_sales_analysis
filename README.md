@@ -1,6 +1,6 @@
 
-🗃️ Fast Food Sales Analysis with SQL
-A structured SQL project analyzing fast food store sales to uncover trends in product popularity, seasonal performance, and customer preferences across gender and time.
+## 🗃️ Fast Food Sales Analysis with SQL
+- A structured SQL project analyzing fast food store sales to uncover trends in product popularity, seasonal performance, and customer preferences across gender and time.
 
 ## 📚 Table of Contents
 

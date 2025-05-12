@@ -1,18 +1,17 @@
 
-# 🗃️ Fast_Food Sales Analysis with SQL
-
-_A structured SQL project analyzing an online retail database to uncover trends in revenue, customer behavior, and regional performance._
+🗃️ Fast Food Sales Analysis with SQL
+A structured SQL project analyzing fast food store sales to uncover trends in product popularity, seasonal performance, and customer preferences across gender and time.
 
 ## 📚 Table of Contents
 
 - Project Overview
-- [Database Schema](#database-schema)  
-- [Tools Used](#tools-used)  
-- [Business Questions](#business-questions)  
-- [Sample Queries](#sample-queries)  
-- [Key Insights](#key-insights)  
-- [How to Use](#how-to-use)  
-- [License](#license)
+- Database Schema
+- Tools Used
+- Business Questions
+- Sample Queries
+- Key Insights
+- How to Use
+- License
 
 ## 📌 Project Overview
 
@@ -219,12 +218,38 @@ ORDER BY YEAR(date) , sales_amount DESC ;
 - The percentage of top-performing items—Cold Coffee, Frankie, Panipuri, and Sandwich—classified as above average increased from approximately 45% in 2022 to 66.6% in 2023.
 - Aalopuri showed notable improvement, shifting from being mostly below average in 2022 to predominantly above average in 2023. Conversely, Vadapav declined, with its above-average performance dropping from 66% to 33% in 2023.
   
-
 ## ▶️ How to Use
 
-1. Import `ecommerce_schema.sql` to create tables  
-2. Run `insert_sample_data.sql` to populate the database  
-3. Open `queries/` to view and execute analysis scripts  
+1.Create a database first: e.g. 
+```sql
+CREATE DATABASE fast_food;
+```
+2.Create a table to import the csv into: e.g.
+```sql
+CREATE TABLE sales_data (
+    order_id INT PRIMARY KEY,
+    date DATE,
+    item_name VARCHAR(50),
+    item_type VARCHAR(20),
+    item_price DECIMAL(10, 2),
+    quantity INT,
+    transaction_amount DECIMAL(10, 2),
+    transaction_type VARCHAR(20),
+    received_by VARCHAR(10),
+    time_of_sale VARCHAR(20)
+);
+```
+3.To Import 
+- Select & Right click on 'food' table
+- Click the option 'Table Data Import Wizard',
+- browse your csv location, select the file and click next until import
+
+## 🧹 Data Cleaning
+```sql
+UPDATE food
+SET transaction_type = ''
+WHERE transaction_type = 'Other';
+```
 
 ## 📜 License
 

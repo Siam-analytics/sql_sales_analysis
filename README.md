@@ -241,8 +241,9 @@ CREATE TABLE sales_data (
 ```
 3.To Import:
 - Select & Right click on 'food' table
-- Click the option 'Table Data Import Wizard',
+- Click the option 'Table Data Import Wizard'
 - browse your csv location, select the file and click next until import
+
 4.Download the .zip folder
 
 ## 🧹 Data Cleaning

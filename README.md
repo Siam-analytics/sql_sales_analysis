@@ -220,11 +220,11 @@ ORDER BY YEAR(date) , sales_amount DESC ;
   
 ## ▶️ How to Use
 
-1.Create a database first: e.g. 
+1.Create a Database: e.g. 
 ```sql
 CREATE DATABASE fast_food;
 ```
-2.Create a table to import the csv into: e.g.
+2.Create a Table: e.g.
 ```sql
 CREATE TABLE sales_data (
     order_id INT PRIMARY KEY,
@@ -239,7 +239,7 @@ CREATE TABLE sales_data (
     time_of_sale VARCHAR(20)
 );
 ```
-3.To Import 
+3.To Import:
 - Select & Right click on 'food' table
 - Click the option 'Table Data Import Wizard',
 - browse your csv location, select the file and click next until import

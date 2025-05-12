@@ -1,11 +1,11 @@
 
-# 🗃️ E-Commerce Sales Analysis with SQL
+# 🗃️ Fast_Food Sales Analysis with SQL
 
 _A structured SQL project analyzing an online retail database to uncover trends in revenue, customer behavior, and regional performance._
 
 ## 📚 Table of Contents
 
-- [Project Overview](#project-overview)  
+- Project Overview
 - [Database Schema](#database-schema)  
 - [Tools Used](#tools-used)  
 - [Business Questions](#business-questions)  
@@ -213,13 +213,12 @@ ORDER BY YEAR(date) , sales_amount DESC ;
 
 ## 📊 Key Insights
 
-- 🇺🇸 USA contributed to **40%** of total sales revenue.  
-- "Panipuri" is the most popular item among men with a total orders of 685, while women prefer "Cold Coffee" the most 
- with a total orders of 687
-- "Cold Coffee" had the highest sell in 2022, contributing 16.35 % of the total yearly sales & for 2023 "Frankie" secures the top sales, contributing 18.84 % of the total yearly sales
-- aalopuri had the highest revenue at the summer season together with cold coffee, all the other items had the max revenue in monsoon
-- Cold Coffee (2022): ~45% above, but in 2023, it jumps to 66.6% above → improved performance.
-- Aalopuri flips from mostly below avg (2022) to mostly above avg (2023) → good recovery or growth.
+- Panipuri emerged as the most popular item among men with 685 total orders, whereas Cold Coffee was the top choice among women with 687 orders.
+- In terms of annual sales, Cold Coffee led in 2022, accounting for 16.35% of the year's total sales. In 2023, Frankie took the lead, contributing 18.84% to the yearly sales.
+- During the summer season, Aalopuri and Cold Coffee generated the highest revenue, while all other items reached peak revenue during the monsoon season.
+- The percentage of top-performing items—Cold Coffee, Frankie, Panipuri, and Sandwich—classified as above average increased from approximately 45% in 2022 to 66.6% in 2023.
+- Aalopuri showed notable improvement, shifting from being mostly below average in 2022 to predominantly above average in 2023. Conversely, Vadapav declined, with its above-average performance dropping from 66% to 33% in 2023.
+  
 
 ## ▶️ How to Use
 

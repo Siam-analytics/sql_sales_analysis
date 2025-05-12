@@ -102,24 +102,39 @@ ORDER BY received_by , SUM(quantity) DESC ;
 ```sql
 -- Monthly Item Performance: Sales vs. Annual Average with Performance Flag
 WITH monthly_total_amount AS (
-SELECT 
-	item_name, 
-	YEAR(date) as year, 
-	MONTH(date) as month, 
-	SUM(transaction_amount) as total_amount
-FROM food
-GROUP BY year(date), month(date), item_name
-ORDER BY year, item_name
+    SELECT 
+        item_name, 
+        YEAR(date) AS year, 
+        MONTH(date) AS month, 
+        SUM(transaction_amount) AS total_amount
+    FROM food
+    GROUP BY YEAR(date), MONTH(date), item_name
+),
+monthly_performance AS (
+    SELECT 
+        *, 
+        ROUND(AVG(total_amount) OVER(PARTITION BY item_name, year), 2) AS monthly_avg, 
+        total_amount - ROUND(AVG(total_amount) OVER(PARTITION BY item_name, year), 2) AS avg_diff,
+        CASE 
+            WHEN total_amount - ROUND(AVG(total_amount) OVER(PARTITION BY item_name, year), 2) < 0 THEN 'below_avg'
+            WHEN total_amount - ROUND(AVG(total_amount) OVER(PARTITION BY item_name, year), 2) = 0 THEN 'avg'
+            ELSE 'above_avg'
+        END AS sales_comp_with_avg
+    FROM monthly_total_amount
+),
+performance_pct AS (
+    SELECT 
+        item_name, 
+        year,
+        sales_comp_with_avg,
+        CONCAT(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (PARTITION BY item_name, year), ' %') AS pct_status
+    FROM monthly_performance
+    GROUP BY item_name, year, sales_comp_with_avg
 )
-SELECT 
-	*, 
-	ROUND(AVG(total_amount) OVER(partition by item_name, year),2) as monthly_avg, 
-	total_amount-round(AVG(total_amount) OVER(partition by item_name, year),2) as avg_diff,
-CASE WHEN total_amount-round(AVG(total_amount) OVER(partition by item_name, year),2)<0 THEN 'bad'
-     WHEN total_amount-round(AVG(total_amount) OVER(partition by item_name, year),2)=0 THEN 'avg'
-     WHEN total_amount-round(AVG(total_amount) OVER(partition by item_name, year),2)>0 THEN 'good'
-END AS sales_perf
-FROM monthly_total_amount ;
+
+SELECT *
+FROM performance_pct
+ORDER BY item_name, year, sales_comp_with_avg;
 ```
 
 ```sql
@@ -163,23 +178,24 @@ FROM cte1 ;
 
 ```sql
 -- Seasonal Sales of each item
-SELECT item_name, 
-	   transaction_amount, 
-CASE WHEN month(date) = 2 THEN 'spring'
-	 WHEN month(date) between 3 and 5 THEN 'summer'
-	 WHEN month(date) between  6 and 9 THEN 'Monsoon'
-	 WHEN month(date) between 10 and 11 THEN 'Pre-Winter'
-ELSE 'Winter'
-END AS season,
-	YEAR (date) as year, 
-	SUM(transaction_amount) OVER(partition by CASE WHEN month(date) = 2 THEN 'spring'
-	 WHEN month(date) between 3 and 5 THEN 'summer'
-	 WHEN month(date) between  6 and 9 THEN 'Monsoon'
-	 WHEN month(date) between 10 and 11 THEN 'Pre-Winter'
-ELSE 'Winter'
-end, item_name) AS total_seasonal_sales
+WITH seasonal_segmentation as (
+SELECT 
+	item_name, 
+	transaction_amount, 
+	CASE WHEN month(date) = 2 THEN 'spring'
+		WHEN month(date) between 3 and 5 THEN 'summer'
+		WHEN month(date) between  6 and 9 THEN 'Monsoon'
+		WHEN month(date) between 10 and 11 THEN 'Pre-Winter'
+	ELSE 'Winter'
+	END AS season
 FROM food
-ORDER BY item_name, total_seasonal_sales DESC ;
+ORDER BY item_name DESC 
+)
+
+SELECT item_name, season, sum(transaction_amount) AS total_amount
+FROM seasonal_segmentation
+group by item_name, season
+order by item_name, total_amount DESC;
 ```
 
 ```sql
@@ -198,9 +214,12 @@ ORDER BY YEAR(date) , sales_amount DESC ;
 ## 📊 Key Insights
 
 - 🇺🇸 USA contributed to **40%** of total sales revenue.  
-- 📦 _Product A_ is the top-selling item with over 3,000 units sold.  
-- 🕒 Sales spike consistently in Q4 due to holiday seasonality.  
-- 👵 Customers aged 35–44 spend the most on average per order.
+- "Panipuri" is the most popular item among men with a total orders of 685, while women prefer "Cold Coffee" the most 
+ with a total orders of 687
+- "Cold Coffee" had the highest sell in 2022, contributing 16.35 % of the total yearly sales & for 2023 "Frankie" secures the top sales, contributing 18.84 % of the total yearly sales
+- aalopuri had the highest revenue at the summer season together with cold coffee, all the other items had the max revenue in monsoon
+- Cold Coffee (2022): ~45% above, but in 2023, it jumps to 66.6% above → improved performance.
+- Aalopuri flips from mostly below avg (2022) to mostly above avg (2023) → good recovery or growth.
 
 ## ▶️ How to Use
 

